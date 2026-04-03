@@ -31,7 +31,6 @@ with st.sidebar:
     st.write("**Method:** TF-IDF Vectorization")
     st.info("This project was built to demonstrate NLP classification using Scikit-Learn.")
     st.divider()
-    st.caption("Developed by Debalina Saha")
 
 # 4. Main UI Header
 st.title("📧 AI-Powered Spam Classifier")
@@ -93,4 +92,4 @@ if st.button('Analyze Message'):
 
 # 8. Footer
 st.divider()
-st.caption("Built with Python, Scikit-Learn & Streamlit | 2026 Portfolio Project")
+st.caption("2026 Internship Project")
