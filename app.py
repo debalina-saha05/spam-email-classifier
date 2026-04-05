@@ -31,7 +31,6 @@ with st.sidebar:
     st.divider()
     st.markdown("### **Project by**")
     st.write("Debalina Saha")
-    st.caption("AI-Assisted UI & Optimization")
     st.info("This project was built to demonstrate NLP classification using Scikit-Learn.")
 
 # 4. Main UI Header
