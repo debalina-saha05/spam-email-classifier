@@ -85,26 +85,33 @@ Best,
 The Engineering Team"""
 }
 
-# --- RELIABLE INPUT LOGIC ---
-# This version is "bulletproof" and will not freeze the samples.
+# Initialize session state for the text area if it doesn't exist
+if "user_text" not in st.session_state:
+    st.session_state.user_text = ""
+
+# Function to force the text area to update when dropdown changes
+def update_text():
+    st.session_state.user_text = sample_emails[st.session_state.sample_selector]
+
+# The Dropdown
 selected_sample = st.selectbox(
     "Select a sample message to test:", 
-    list(sample_emails.keys())
+    list(sample_emails.keys()),
+    key="sample_selector",
+    on_change=update_text
 )
 
-# We use the selected sample as the 'value'. 
-# If you type over it, Streamlit treats it as a 'Manual Edit'.
+# The Text Area (Linked to session_state)
 user_input = st.text_area(
     "Paste your email/message here:", 
-    value=sample_emails[selected_sample], 
+    key="user_text", 
     height=200
-    key=f"input_box_{selected_sample}"
 )
 
 # 6. Prediction Logic
 if st.button('Analyze Message', type="primary"):
-    # We grab exactly what is visible in the text box at this moment.
-    text_to_analyze = user_input.strip()
+    # We use the text directly from the session state
+    text_to_analyze = st.session_state.user_text.strip()
     
     if text_to_analyze == "":
         st.warning("Please enter some text first!")
@@ -141,7 +148,6 @@ if st.button('Analyze Message', type="primary"):
             st.info("💡 **Why Ham?** The message pattern closely matches typical conversational language.")
     else:
         st.error("Model assets could not be loaded.")
-
 # 8. Footer
 st.divider()
 st.caption("Internship Project | 2026")
