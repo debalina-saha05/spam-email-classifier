@@ -40,12 +40,60 @@ st.markdown("""
 """)
 
 # 5. Interactive Sample Selection
+# 5. Professional Email Samples (Multi-line Formatting)
 sample_emails = {
-    "Custom Text": "",
-    "Spam Example 1": "WINNER! You have won a £1000 cash prize. Claim now by calling 0800-123-456. This is an urgent message!",
-    "Spam Example 2": "URGENT! Your mobile number has been selected for a free gift. Text 'YES' to 60060 to receive your prize.",
-    "Ham Example 1": "Hey, are we still meeting for the project discussion at 3 PM today? Let me know.",
-    "Ham Example 2": "The weather looks great for the weekend. Do you want to go for a hike?"
+    "Select a sample to test...": "",
+    
+    "Spam: Phishing Attempt": """Subject: Urgent: Your account has been compromised!
+
+Dear User,
+
+Our security system detected an unauthorized login attempt from a new IP address in a different country. To protect your data, your account has been temporarily locked.
+
+Please click the link below to verify your identity and restore access:
+http://secure-login-verify-portal.com/update-security
+
+If you do not complete this verification within 2 hours, your account will be permanently deactivated.
+
+Regards,
+Security Team""",
+
+    "Spam: Prize Notification": """Subject: Final Notice: You have (1) pending payout of $500,000.00
+
+Official Notification:
+
+Your email address was randomly selected as a winner in our Global Anniversary Draw. To claim your cash prize, please provide the following details to our agent:
+
+1. Full Name
+2. Phone Number
+3. Bank Account Number
+
+Reply directly to this email to start the transfer process. Do not share this information with others.
+
+Agent: Mr. John Smith
+Claims Department""",
+
+    "Ham: Meeting Invitation": """Subject: Schedule for Project Review Meeting
+
+Hi Debalina,
+
+I hope you're having a productive week. I've scheduled a brief meeting for Monday at 11:00 AM to review the progress on the Spam Classifier project.
+
+I have attached the initial report for your reference. Please let me know if this time works for you, or if we need to reschedule.
+
+Best regards,
+Muskan""",
+
+    "Ham: Internship Feedback": """Subject: Feedback on your Machine Learning Task
+
+Dear Debalina,
+
+Great job on the latest update to your repository. The accuracy of 96.68% is very impressive, and the UI layout is clean and user-friendly.
+
+Let's discuss how we can further optimize the preprocessing pipeline during our sync tomorrow. Keep up the excellent work!
+
+Best,
+The Engineering Team"""
 }
 
 selected_sample = st.selectbox("Select a sample message to test:", list(sample_emails.keys()))
