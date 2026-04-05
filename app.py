@@ -98,6 +98,7 @@ user_input = st.text_area(
     "Paste your email/message here:", 
     value=sample_emails[selected_sample], 
     height=200
+    key=f"input_box_{selected_sample}"
 )
 
 # 6. Prediction Logic
