@@ -1,6 +1,5 @@
 import streamlit as st
 import pickle
-import pandas as pd
 
 # 1. Page Configuration
 st.set_page_config(
@@ -74,7 +73,7 @@ Hi Debalina,
 I hope you're having a productive week. I've scheduled a brief meeting for Monday at 11:00 AM to review the progress on the Spam Classifier project.
 
 Best,
-Muskan""",
+George""",
 
     "Ham: Internship Feedback": """Subject: Feedback on your Machine Learning Task
 
@@ -86,46 +85,52 @@ Best,
 The Engineering Team"""
 }
 
-# Initialize session state for the selectbox
-if 'sample_index' not in st.session_state:
-    st.session_state.sample_index = 0
+# --- STABLE INPUT LOGIC ---
+# Initialize session state for the text content
+if 'text_content' not in st.session_state:
+    st.session_state.text_content = ""
 
-# Create the selectbox
+# Dropdown for samples
 selected_sample = st.selectbox(
     "Select a sample message to test:", 
     list(sample_emails.keys()),
-    index=st.session_state.sample_index,
     key="sample_selector"
 )
 
-# Text Area logic
-# We use a key for the text_area so it stays consistent
+# Update the text area ONLY if the user picks a new sample from the dropdown
+if st.session_state.get('last_selected') != selected_sample:
+    st.session_state.text_content = sample_emails[selected_sample]
+    st.session_state.last_selected = selected_sample
+
+# The Text Area - This captures exactly what you type
 user_input = st.text_area(
     "Paste your email/message here:", 
-    value=sample_emails[selected_sample], 
-    height=200
+    value=st.session_state.text_content, 
+    height=200,
+    key="email_input_box"
 )
 
-# Smart Logic: Reset dropdown if user types something else
-if user_input != sample_emails[selected_sample] and selected_sample != "Custom Text":
-    st.session_state.sample_index = 0
-    st.rerun()
-
 # 6. Prediction Logic
-if st.button('Analyze Message'):
-    if user_input.strip() == "":
+if st.button('Analyze Message', type="primary"):
+    # We strip whitespace and check if it's empty
+    text_to_analyze = user_input.strip()
+    
+    if text_to_analyze == "":
         st.warning("Please enter some text first!")
     elif model and vectorizer:
-        vectorized_data = vectorizer.transform([user_input])
+        # Preprocessing & Prediction
+        vectorized_data = vectorizer.transform([text_to_analyze])
         prediction = model.predict(vectorized_data)[0]
         
+        # Calculate Probability (Confidence)
         proba = model.predict_proba(vectorized_data)[0]
         confidence = max(proba) * 100
 
         st.divider()
         
-        # 7. Result Display
+        # 7. Professional Result Display
         col1, col2 = st.columns(2)
+        
         with col1:
             st.subheader("Result:")
             if prediction == 1:
@@ -138,6 +143,7 @@ if st.button('Analyze Message'):
             st.write(f"Level: **{confidence:.2f}%**")
             st.progress(int(confidence))
 
+        # Additional explanation for recruiters
         if prediction == 1:
             st.info("💡 **Why Spam?** The model detected keywords and patterns commonly found in fraudulent messages.")
         else:
