@@ -85,34 +85,24 @@ Best,
 The Engineering Team"""
 }
 
-# --- STABLE INPUT LOGIC ---
-# Initialize session state for the text content
-if 'text_content' not in st.session_state:
-    st.session_state.text_content = ""
-
-# Dropdown for samples
+# --- RELIABLE INPUT LOGIC ---
+# This version is "bulletproof" and will not freeze the samples.
 selected_sample = st.selectbox(
     "Select a sample message to test:", 
-    list(sample_emails.keys()),
-    key="sample_selector"
+    list(sample_emails.keys())
 )
 
-# Update the text area ONLY if the user picks a new sample from the dropdown
-if st.session_state.get('last_selected') != selected_sample:
-    st.session_state.text_content = sample_emails[selected_sample]
-    st.session_state.last_selected = selected_sample
-
-# The Text Area - This captures exactly what you type
+# We use the selected sample as the 'value'. 
+# If you type over it, Streamlit treats it as a 'Manual Edit'.
 user_input = st.text_area(
     "Paste your email/message here:", 
-    value=st.session_state.text_content, 
-    height=200,
-    key="email_input_box"
+    value=sample_emails[selected_sample], 
+    height=200
 )
 
 # 6. Prediction Logic
 if st.button('Analyze Message', type="primary"):
-    # We strip whitespace and check if it's empty
+    # We grab exactly what is visible in the text box at this moment.
     text_to_analyze = user_input.strip()
     
     if text_to_analyze == "":
@@ -143,7 +133,7 @@ if st.button('Analyze Message', type="primary"):
             st.write(f"Level: **{confidence:.2f}%**")
             st.progress(int(confidence))
 
-        # Additional explanation for recruiters
+        # Additional explanation
         if prediction == 1:
             st.info("💡 **Why Spam?** The model detected keywords and patterns commonly found in fraudulent messages.")
         else:
