@@ -6,7 +6,8 @@ An AI-powered text classification tool designed to filter out spam emails with h
 [**Click here to view the Live Web App**](https://spam-email-classifier-project1.streamlit.app/)
 
 ## Key Features
-* **High Accuracy:** Achieved **96.68%** accuracy using the Multinomial Naive Bayes algorithm.![Model Training Proof](training_proof.png)
+* **High Accuracy:** Achieved **96.68%** accuracy using the Multinomial Naive Bayes algorithm.
+  ![Model Training](model-train-output.png)
 * **Real-time Prediction:** User-friendly interface built with Streamlit for instant classification.
 * **NLP Pipeline:** Includes text preprocessing, tokenization, and TF-IDF vectorization.
 
