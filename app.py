@@ -27,10 +27,10 @@ with st.sidebar:
     st.metric(label="Model Accuracy", value="96.68%")
     st.write("**Algorithm:** Multinomial Naive Bayes")
     st.write("**Method:** TF-IDF Vectorization")
+    st.info("An intelligent assistant designed to protect users by automatically detecting phishing attempts and promotional junk in real-time.")
     st.divider()
-    st.markdown("### **Project by**")
+    st.markdown("## **Project by**")
     st.write("Debalina Saha")
-    st.info("This project was built to demonstrate NLP classification using Scikit-Learn.")
 
 # 4. Main UI Header
 st.title("📧 AI-Powered Spam Classifier")
@@ -84,34 +84,19 @@ Great job on the latest update to your repository. The accuracy of 96.68% is ver
 Best,
 The Engineering Team"""
 }
-
-# Initialize session state for the text area if it doesn't exist
-if "user_text" not in st.session_state:
-    st.session_state.user_text = ""
-
-# Function to force the text area to update when dropdown changes
-def update_text():
-    st.session_state.user_text = sample_emails[st.session_state.sample_selector]
-
-# The Dropdown
 selected_sample = st.selectbox(
     "Select a sample message to test:", 
-    list(sample_emails.keys()),
-    key="sample_selector",
-    on_change=update_text
+    list(sample_emails.keys())
 )
-
-# The Text Area (Linked to session_state)
 user_input = st.text_area(
     "Paste your email/message here:", 
-    key="user_text", 
+    value=sample_emails[selected_sample], 
     height=200
 )
 
 # 6. Prediction Logic
 if st.button('Analyze Message', type="primary"):
-    # We use the text directly from the session state
-    text_to_analyze = st.session_state.user_text.strip()
+    text_to_analyze = user_input.strip()
     
     if text_to_analyze == "":
         st.warning("Please enter some text first!")
@@ -126,28 +111,46 @@ if st.button('Analyze Message', type="primary"):
 
         st.divider()
         
-        # 7. Professional Result Display
+        # 7. Professional Result Display 
         col1, col2 = st.columns(2)
+        
+        # Logic to determine colors and components based on prediction
+        if prediction == 1:
+            color = "#FF4B4B"  # Red for Spam
+            result_func = st.error
+            result_msg = "🚨 This is SPAM"
+            info_msg = "💡 **Why Spam?** The model detected keywords and patterns commonly found in fraudulent messages."
+        else:
+            color = "#28A745"  # Green for Ham
+            result_func = st.success
+            result_msg = "✅ This is SAFE (Ham)"
+            info_msg = "💡 **Why Ham?** The message pattern closely matches typical conversational language."
         
         with col1:
             st.subheader("Result:")
-            if prediction == 1:
-                st.error("🚨 This is SPAM")
-            else:
-                st.success("✅ This is SAFE (Ham)")
+            result_func(result_msg) # Dynamically uses st.error or st.success
         
         with col2:
             st.subheader("Confidence:")
             st.write(f"Level: **{confidence:.2f}%**")
-            st.progress(int(confidence))
+           
+            st.markdown(f"""
+                <div style="background-color: #dfe2e6; border-radius: 10px; height: 15px; width: 100%;">
+                    <div style="background-color: {color}; width: {confidence}%; height: 15px; border-radius: 10px;"></div>
+                </div>
+                """, unsafe_allow_html=True)
 
-        # Additional explanation
-        if prediction == 1:
-            st.info("💡 **Why Spam?** The model detected keywords and patterns commonly found in fraudulent messages.")
-        else:
-            st.info("💡 **Why Ham?** The message pattern closely matches typical conversational language.")
+        # 8. Dynamic Explanation
+        st.info(info_msg)
+        
     else:
         st.error("Model assets could not be loaded.")
-# 8. Footer
+
+# 9. Final Footer
 st.divider()
-st.caption("Internship Project | 2026")
+st.markdown(
+    f"<div style='text-align: center; color: #6c757d; font-size: 0.8rem;'>"
+    f"Internship Project | 2026"
+    f"</div>", 
+    unsafe_allow_html=True
+)
