@@ -7,9 +7,14 @@ An AI-powered text classification tool designed to filter out spam emails with h
 
 ## Key Features
 * **High Accuracy:** Achieved **96.68%** accuracy using the Multinomial Naive Bayes algorithm.
-  ![Model Training](model-train-output.png)
 * **Real-time Prediction:** User-friendly interface built with Streamlit for instant classification.
 * **NLP Pipeline:** Includes text preprocessing, tokenization, and TF-IDF vectorization.
+
+##  Training Pipeline & Output
+<div align="center">
+  <img src="model-train-output.png" width="700" alt="Training Output Proof">
+  <p><i>Figure 1: VS Code terminal showing successful training on 83,448 emails with 96.68% accuracy.</i></p>
+</div>
 
 ## Performance Metrics
 | Metric | Score |
