@@ -29,4 +29,3 @@ An AI-powered text classification tool designed to filter out spam emails with h
 * `model.pkl`: The trained and serialized Naive Bayes model.
 * `vectorizer.pkl`: The saved TF-IDF vectorizer for processing new inputs.
 * `requirements.txt`: List of Python dependencies (scikit-learn, streamlit, etc.).
-```
