@@ -3,7 +3,7 @@ import pickle
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="AI Spam Classifier",
+    page_title="Spam Email Classifier",
     page_icon="📧",
     layout="centered"
 )
@@ -33,7 +33,7 @@ with st.sidebar:
     st.write("Debalina Saha")
 
 # 4. Main UI Header
-st.title("📧 AI-Powered Spam Classifier")
+st.title("📧 AI-Powered Spam Email Classifier")
 st.markdown("""
     Welcome! This tool uses Machine Learning to detect if a message is **Spam** or **Ham (Safe)**.
     Simply paste a message below to analyze it.
