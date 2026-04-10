@@ -21,7 +21,7 @@ An AI-powered text classification tool designed to filter out spam emails with h
 | :--- | :--- |
 | **Algorithm** | Multinomial Naive Bayes |
 | **Accuracy** | 96.68% |
-| **Vectorization** | TF-IDF / Bag of Words |
+| **Vectorization** | TF-IDF |
 
 ## Tech Stack
 * **Language:** Python
